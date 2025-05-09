@@ -32,6 +32,15 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/authentication/**").permitAll()
+                        //Home page has access to all jobs
+                        .requestMatchers(HttpMethod.GET, "/api/job-vacancy").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/job-vacancy/").permitAll()
+                        // Company changing only to COMPANY
+                        .requestMatchers(HttpMethod.POST, "/api/job-vacancy").hasRole("COMPANY")
+                        .requestMatchers(HttpMethod.PUT, "/api/job-vacancy/**").hasRole("COMPANY")
+                        .requestMatchers(HttpMethod.DELETE, "/api/job-vacancy/**").hasRole("COMPANY")
+                        //  Company result only to COMPANY
+                        .requestMatchers(HttpMethod.GET, "/api/job-vacancy/company").hasRole("COMPANY")
                         .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

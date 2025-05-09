@@ -1,5 +1,8 @@
 package com.sha.translator_docs.controller;
 
+import com.sha.translator_docs.DTO.UserDTO.UserMapper;
+import com.sha.translator_docs.DTO.UserDTO.UserRequestDTO;
+import com.sha.translator_docs.DTO.UserDTO.UserResponseDTO;
 import com.sha.translator_docs.model.User;
 import com.sha.translator_docs.service.AuthenticationService;
 import com.sha.translator_docs.service.UserService;
@@ -23,17 +26,28 @@ public class AuthenticationController {
 
     //Save User
     @PostMapping("sign-up")
-    public ResponseEntity<?> signUp(@RequestBody User user){
-
-        if(userService.findByEmail(user.getEmail()).isPresent()){
+    public ResponseEntity<?> signUp(@RequestBody UserRequestDTO userDTO){
+        if(userService.findByEmail(userDTO.getEmail()).isPresent()){
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(userService.saveUser(user), HttpStatus.CREATED);
+
+        User userToSave = UserMapper.toEntity(userDTO);
+        User savedUser = userService.saveUser(userToSave);
+        UserResponseDTO responseDTO = UserMapper.toDTO(savedUser);
+
+        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
     //Log In User
     @PostMapping("sign-in")
-    public ResponseEntity<?> signIn(@RequestBody User user){
-        return new ResponseEntity<>(authenticationService.signInAndReturnJWT(user), HttpStatus.OK);
+    public ResponseEntity<?> signIn(@RequestBody UserRequestDTO userDTO){
+        User loginAttempt = new User();
+        loginAttempt.setEmail(userDTO.getEmail());
+        loginAttempt.setPassword(userDTO.getPassword());
+
+        User signedInUser = authenticationService.signInAndReturnJWT(loginAttempt);
+        UserResponseDTO responseDTO = UserMapper.toDTO(signedInUser);
+
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 }

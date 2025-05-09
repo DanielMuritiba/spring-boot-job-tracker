@@ -1,8 +1,8 @@
 package com.sha.translator_docs.service;
 
 
-import com.sha.translator_docs.DTO.DeviceDTO.JobVacancyRequestDTO;
-import com.sha.translator_docs.DTO.DeviceDTO.JobVacancyResponseDTO;
+import com.sha.translator_docs.DTO.JobVacancyDTO.JobVacancyRequestDTO;
+import com.sha.translator_docs.DTO.JobVacancyDTO.JobVacancyResponseDTO;
 import com.sha.translator_docs.model.User;
 import org.springframework.data.domain.Page;
 

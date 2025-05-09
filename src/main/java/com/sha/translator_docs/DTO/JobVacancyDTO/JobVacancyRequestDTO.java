@@ -1,4 +1,4 @@
-package com.sha.translator_docs.DTO.DeviceDTO;
+package com.sha.translator_docs.DTO.JobVacancyDTO;
 
 import lombok.Data;
 

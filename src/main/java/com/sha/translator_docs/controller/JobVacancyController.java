@@ -1,8 +1,7 @@
 package com.sha.translator_docs.controller;
 
-import com.sha.translator_docs.DTO.DeviceDTO.JobVacancyRequestDTO;
-import com.sha.translator_docs.DTO.DeviceDTO.JobVacancyResponseDTO;
-import com.sha.translator_docs.model.JobVacancy;
+import com.sha.translator_docs.DTO.JobVacancyDTO.JobVacancyRequestDTO;
+import com.sha.translator_docs.DTO.JobVacancyDTO.JobVacancyResponseDTO;
 import com.sha.translator_docs.model.User;
 import com.sha.translator_docs.security.UserPrincipal;
 import com.sha.translator_docs.service.JobVacancyService;
@@ -10,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

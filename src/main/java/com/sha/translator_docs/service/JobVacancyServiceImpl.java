@@ -1,8 +1,8 @@
 package com.sha.translator_docs.service;
 
-import com.sha.translator_docs.DTO.DeviceDTO.JobVacancyMapper;
-import com.sha.translator_docs.DTO.DeviceDTO.JobVacancyRequestDTO;
-import com.sha.translator_docs.DTO.DeviceDTO.JobVacancyResponseDTO;
+import com.sha.translator_docs.DTO.JobVacancyDTO.JobVacancyMapper;
+import com.sha.translator_docs.DTO.JobVacancyDTO.JobVacancyRequestDTO;
+import com.sha.translator_docs.DTO.JobVacancyDTO.JobVacancyResponseDTO;
 import com.sha.translator_docs.model.JobVacancy;
 import com.sha.translator_docs.model.User;
 import com.sha.translator_docs.repository.JobVacancyRepository;

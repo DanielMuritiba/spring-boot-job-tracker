@@ -50,7 +50,7 @@ public class JobVacancyController {
             Authentication authentication) {
 
         UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        Long companyId = userPrincipal.getUser().getId();
+        Long companyId = userPrincipal.getId();
 
         return ResponseEntity.ok(jobVacancyService.findByCompanyPaginated(companyId, page, size));
     }

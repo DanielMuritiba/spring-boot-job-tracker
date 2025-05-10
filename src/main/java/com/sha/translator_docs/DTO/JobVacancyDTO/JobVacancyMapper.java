@@ -6,6 +6,7 @@ public class JobVacancyMapper {
 
     public static JobVacancy toEntity(JobVacancyRequestDTO dto) {
         JobVacancy vacancy = new JobVacancy();
+        vacancy.setId(dto.getId());
         vacancy.setJobName(dto.getJobName());
         vacancy.setRequiredSkills(dto.getRequiredSkills());
         vacancy.setDescription(dto.getDescription());

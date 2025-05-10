@@ -9,9 +9,9 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface JobVacancyService {
-    JobVacancyResponseDTO saveJobVacancy(JobVacancyRequestDTO dto, User company);
+    JobVacancyResponseDTO saveJobVacancy(JobVacancyRequestDTO dto, Long companyId);
 
-    void deleteJobVacancy(Long id);
+    void deleteJobVacancy(Long jobVacancyId, Long companyId);
 
     List<JobVacancyResponseDTO> findAllJobVacancy();
 

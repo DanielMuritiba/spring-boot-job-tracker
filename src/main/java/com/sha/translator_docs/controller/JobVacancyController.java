@@ -24,17 +24,21 @@ public class JobVacancyController {
     public ResponseEntity<JobVacancyResponseDTO> saveJobVacancy(
             @RequestBody JobVacancyRequestDTO jobVacancyDTO,
             Authentication authentication) {
-
-        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        User company = userPrincipal.getUser();
-
-        JobVacancyResponseDTO response = jobVacancyService.saveJobVacancy(jobVacancyDTO, company);
+        System.out.println("🔍 [POST] saveJobVacancy chamado");
+        System.out.println("📦 jobVacancyDTO recebido: " + jobVacancyDTO);
+        System.out.println("🆔 DTO id: " + jobVacancyDTO.getId());
+        Long companyId = ((UserPrincipal) authentication.getPrincipal()).getId();
+        JobVacancyResponseDTO response = jobVacancyService.saveJobVacancy(jobVacancyDTO, companyId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @DeleteMapping("{jobVacancyId}")
-    public ResponseEntity<?> deleteJobVacancy(@PathVariable Long jobVacancyId) {
-        jobVacancyService.deleteJobVacancy(jobVacancyId);
+    public ResponseEntity<?> deleteJobVacancy(
+            @PathVariable Long jobVacancyId,
+            Authentication authentication) {
+
+        Long companyId = ((UserPrincipal) authentication.getPrincipal()).getId();
+        jobVacancyService.deleteJobVacancy(jobVacancyId, companyId);
         return ResponseEntity.ok().build();
     }
 

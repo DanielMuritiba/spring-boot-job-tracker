@@ -6,6 +6,7 @@ import com.sha.translator_docs.DTO.JobVacancyDTO.JobVacancyResponseDTO;
 import com.sha.translator_docs.model.JobVacancy;
 import com.sha.translator_docs.model.User;
 import com.sha.translator_docs.repository.JobVacancyRepository;
+import com.sha.translator_docs.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,8 +27,14 @@ public class JobVacancyServiceImpl implements JobVacancyService {
         this.jobVacancyRepository = jobVacancyRepository;
     }
 
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public JobVacancyResponseDTO saveJobVacancy(JobVacancyRequestDTO dto, User company) {
+    public JobVacancyResponseDTO saveJobVacancy(JobVacancyRequestDTO dto, Long companyId) {
+        User company = userRepository.findById(companyId)
+                .orElseThrow(() -> new RuntimeException("Company not found with ID: " + companyId));
+
         JobVacancy entity = JobVacancyMapper.toEntity(dto);
         entity.setCompany(company);
         entity.setCreateTime(LocalDateTime.now());
@@ -37,9 +44,17 @@ public class JobVacancyServiceImpl implements JobVacancyService {
     }
 
     @Override
-    public void deleteJobVacancy(Long id) {
-        jobVacancyRepository.deleteById(id);
+    public void deleteJobVacancy(Long jobVacancyId, Long companyId) {
+        JobVacancy vacancy = jobVacancyRepository.findById(jobVacancyId)
+                .orElseThrow(() -> new RuntimeException("Vacancy ID " + jobVacancyId + " not found"));
+
+        if (!vacancy.getCompany().getId().equals(companyId)) {
+            throw new RuntimeException("You are not authorized to delete this vacancy.");
+        }
+
+        jobVacancyRepository.delete(vacancy);
     }
+
 
     @Override
     public List<JobVacancyResponseDTO> findAllJobVacancy() {

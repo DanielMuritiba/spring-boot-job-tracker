@@ -24,9 +24,6 @@ public class JobVacancyController {
     public ResponseEntity<JobVacancyResponseDTO> saveJobVacancy(
             @RequestBody JobVacancyRequestDTO jobVacancyDTO,
             Authentication authentication) {
-        System.out.println("🔍 [POST] saveJobVacancy chamado");
-        System.out.println("📦 jobVacancyDTO recebido: " + jobVacancyDTO);
-        System.out.println("🆔 DTO id: " + jobVacancyDTO.getId());
         Long companyId = ((UserPrincipal) authentication.getPrincipal()).getId();
         JobVacancyResponseDTO response = jobVacancyService.saveJobVacancy(jobVacancyDTO, companyId);
         return new ResponseEntity<>(response, HttpStatus.CREATED);

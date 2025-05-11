@@ -41,6 +41,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/job-vacancy/**").hasRole("COMPANY")
                         //  Company result only to COMPANY
                         .requestMatchers(HttpMethod.GET, "/api/job-vacancy/company").hasRole("COMPANY")
+                        // Save an application
+                        .requestMatchers(HttpMethod.POST, "/api/job-application/**").permitAll()
                         .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);

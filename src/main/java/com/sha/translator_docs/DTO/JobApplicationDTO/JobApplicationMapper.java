@@ -12,6 +12,9 @@ public class JobApplicationMapper {
     public static JobApplicationResponseDTO toResponseDTO(JobApplication app) {
         JobApplicationResponseDTO dto = new JobApplicationResponseDTO();
         dto.setApplicationId(app.getId());
+        dto.setUserUsername(app.getUser().getUsername());
+        dto.setUserDescription(app.getDescription());
+        dto.setUserSkills(app.getSkills());
         dto.setJobName(app.getJobVacancy().getJobName());
         dto.setStatus(app.getStatusApplication().name());
         dto.setScore(app.getScore() != null ? String.valueOf(app.getScore()) : "Not evaluated");

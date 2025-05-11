@@ -44,9 +44,7 @@ public class JobVacancyController {
     public ResponseEntity<Page<JobVacancyResponseDTO>> getAllJobVacancy(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size) {
-        System.out.println("🔥 Entrou no endpoint getAllJobVacancy com page = " + page + " e size = " + size);
         Page<JobVacancyResponseDTO> pageResult = jobVacancyService.findAllJobVacancy(page, size);
-        System.out.println("📦 Retornando " + pageResult.getTotalElements() + " elementos");
         return ResponseEntity.ok(pageResult);
     }
 

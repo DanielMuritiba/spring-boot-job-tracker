@@ -64,14 +64,14 @@ public class JobApplicationController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/company-applications/{jobVacancyId}")
-    public ResponseEntity<Page<JobApplicationResponseDTO>> getApplicationsByJob(
-            @PathVariable Long jobVacancyId,
+    @GetMapping("/company-applications")
+    public ResponseEntity<Page<JobApplicationResponseDTO>> getAllApplicationsByCompany(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "5") int size,
             Authentication authentication) {
 
         Long companyId = ((UserPrincipal) authentication.getPrincipal()).getId();
-        return ResponseEntity.ok(jobApplicationService.getApplicationsByJobVacancy(jobVacancyId, companyId, page, size));
+        return ResponseEntity.ok(
+                jobApplicationService.getAllApplicationsByCompany(companyId, page, size));
     }
 }

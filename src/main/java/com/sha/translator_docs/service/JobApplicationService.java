@@ -21,5 +21,5 @@ public interface JobApplicationService {
     void updateStatusOrScore(Long applicationId, StatusApplication newStatus, Integer newScore, UserPrincipal principal);
 
     // List all company related application
-    Page<JobApplicationResponseDTO> getApplicationsByJobVacancy(Long jobVacancyId, Long companyId, int page, int size);
+    Page<JobApplicationResponseDTO> getAllApplicationsByCompany(Long companyId, int page, int size);
 }

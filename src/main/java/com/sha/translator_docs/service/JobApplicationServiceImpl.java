@@ -40,7 +40,6 @@ public class JobApplicationServiceImpl implements JobApplicationService {
 
         return JobApplicationMapper.toResponseDTO(saved);
     }
-
     @Override
     public Page<JobApplicationResponseDTO> getAllApplicationsByUser(Long userId, int page, int size) {
         Page<JobApplication> applications = jobApplicationRepository.findAllByUserId(userId, PageRequest.of(page, size));
@@ -72,6 +71,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     private boolean isValidStatusTransition(StatusApplication current, StatusApplication next) {
+        System.out.println("Verificando transição: " + current + " -> " + next);
         return switch (current) {
             case APPLIED -> next == StatusApplication.INTERVIEW || next == StatusApplication.DISQUALIFIED;
             case INTERVIEW -> next == StatusApplication.APPROVED || next == StatusApplication.DISQUALIFIED;
@@ -80,8 +80,8 @@ public class JobApplicationServiceImpl implements JobApplicationService {
     }
 
     @Override
-    public Page<JobApplicationResponseDTO> getApplicationsByJobVacancy(Long jobVacancyId, Long companyId, int page, int size) {
-        Page<JobApplication> applications = jobApplicationRepository.findByJobVacancyIdAndCompanyId(jobVacancyId, companyId, PageRequest.of(page, size));
+    public Page<JobApplicationResponseDTO> getAllApplicationsByCompany(Long companyId, int page, int size) {
+        Page<JobApplication> applications = jobApplicationRepository.findByCompanyId(companyId, PageRequest.of(page, size));
         return applications.map(JobApplicationMapper::toResponseDTO);
     }
 }

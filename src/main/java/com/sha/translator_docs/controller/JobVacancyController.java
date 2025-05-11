@@ -6,6 +6,7 @@ import com.sha.translator_docs.model.User;
 import com.sha.translator_docs.security.UserPrincipal;
 import com.sha.translator_docs.service.JobVacancyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -40,8 +41,13 @@ public class JobVacancyController {
     }
 
     @GetMapping
-    public ResponseEntity<List<JobVacancyResponseDTO>> getAllJobVacancy() {
-        return ResponseEntity.ok(jobVacancyService.findAllJobVacancy());
+    public ResponseEntity<Page<JobVacancyResponseDTO>> getAllJobVacancy(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        System.out.println("🔥 Entrou no endpoint getAllJobVacancy com page = " + page + " e size = " + size);
+        Page<JobVacancyResponseDTO> pageResult = jobVacancyService.findAllJobVacancy(page, size);
+        System.out.println("📦 Retornando " + pageResult.getTotalElements() + " elementos");
+        return ResponseEntity.ok(pageResult);
     }
 
     @GetMapping("/company")

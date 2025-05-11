@@ -13,7 +13,7 @@ public interface JobVacancyService {
 
     void deleteJobVacancy(Long jobVacancyId, Long companyId);
 
-    List<JobVacancyResponseDTO> findAllJobVacancy();
+    Page<JobVacancyResponseDTO> findAllJobVacancy(int page, int size);
 
     Page<JobVacancyResponseDTO> findByCompanyPaginated(Long companyId, int page, int size);
 }

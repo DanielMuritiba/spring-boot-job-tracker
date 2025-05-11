@@ -57,11 +57,10 @@ public class JobVacancyServiceImpl implements JobVacancyService {
 
 
     @Override
-    public List<JobVacancyResponseDTO> findAllJobVacancy() {
-        return jobVacancyRepository.findAll()
-                .stream()
-                .map(JobVacancyMapper::toDTO)
-                .toList();
+    public Page<JobVacancyResponseDTO> findAllJobVacancy(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createTime").descending());
+        Page<JobVacancy> resultPage = jobVacancyRepository.findAll(pageable);
+        return resultPage.map(JobVacancyMapper::toDTO);
     }
 
     @Override

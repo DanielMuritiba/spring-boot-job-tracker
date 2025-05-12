@@ -75,6 +75,7 @@ public class JobApplicationServiceImpl implements JobApplicationService {
         return switch (current) {
             case APPLIED -> next == StatusApplication.INTERVIEW || next == StatusApplication.DISQUALIFIED;
             case INTERVIEW -> next == StatusApplication.APPROVED || next == StatusApplication.DISQUALIFIED;
+            case APPROVED -> next == StatusApplication.DISQUALIFIED;
             default -> false;
         };
     }

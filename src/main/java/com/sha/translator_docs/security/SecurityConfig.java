@@ -43,6 +43,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/job-vacancy/company").hasRole("COMPANY")
                         // Save an application
                         .requestMatchers(HttpMethod.POST, "/api/job-application/**").permitAll()
+                        //Job Application permission
+                        .requestMatchers(HttpMethod.GET, "/api/job-application/company-applications").hasRole("COMPANY")
+                        .requestMatchers(HttpMethod.PUT, "/api/job-application/company-jobs").hasRole("COMPANY")
+                        .requestMatchers(HttpMethod.GET, "/api/job-application/profile").authenticated()
+
                         .anyRequest().authenticated()
                 );
         http.addFilterBefore(jwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
